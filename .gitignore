@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Local datasets, model weights and generated results
+dataset/
+weights/
+*.pt
+Results_Output_V2/

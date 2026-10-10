@@ -1,13 +1,12 @@
-train: D:\Innovation_Project\WaterTrash-1\train\images
-val: D:\Innovation_Project\WaterTrash-1\valid\images
-test: D:\Innovation_Project\WaterTrash-1\test\images
+# Relative to the repository root when training from this project.
+# Put the Roboflow dataset under dataset/ (not committed to Git).
+path: ./dataset
+train: train/images
+val: valid/images
+test: test/images
 
 nc: 2
-names: ['non-trash', 'trash']
+names: ["non-trash", "trash"]
 
-roboflow:
-  workspace: try-uqrjj
-  project: trash-in-river
-  version: 2
-  license: CC BY 4.0
-  url: https://universe.roboflow.com/try-uqrjj/trash-in-river/dataset/2
+# Dataset: https://universe.roboflow.com/try-uqrjj/trash-in-river/dataset/2
+# Roboflow dataset license: CC BY 4.0
