@@ -1,106 +1,70 @@
-![Python](https://img.shields.io/badge/Python-3.13-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.11-red)
-![License](https://img.shields.io/badge/License-MIT-green)
 # 🌊 常大河道水面垃圾巡检系统 V2.0
 
-**👉 [点我直接下载 Windows 客户端](https://github.com/lichuanjie31-prog/-/releases/download/v2.0/_V2.0.exe)**
+基于 **YOLOv8 + PyQt6** 的水面垃圾检测工具，支持摄像头实时监控、图片文件夹批量分析、垃圾数量可视化。
 
-> **项目状态**：已完成 V2.0 精度优化，适配 NVIDIA RTX 5060。
+## 下载 Windows 程序
 
-## 🚀 项目亮点
-- **精度质变**：针对 V1.0 在强反光、水草遮挡、色彩保护色下的漏检问题进行了深度微调。
-- **环境前瞻**：率先适配 Python 3.13 + PyTorch 2.11 + CUDA 12.8 (Blackwell 架构)。
-- **工程化**：提供了基于 PyQt6 的可视化操作界面，支持一键打包 `.exe`。
+[查看 V2.0 Release](https://github.com/lichuanjie31-prog/Computer-Vision-River-Cleanup-CCZU/releases/tag/v2.0) · [下载已发布的 _V2.0.exe](https://github.com/lichuanjie31-prog/Computer-Vision-River-Cleanup-CCZU/releases/download/v2.0/_V2.0.exe)
 
-## 🛠️ 技术栈
-- **核心算法**: YOLOv8 (Ultralytics)
-- **开发语言**: Python 3.13
-- **GUI 框架**: PyQt6
-- **训练硬件**: NVIDIA GeForce RTX 5060 Laptop (8GB)
+注意：上述 Windows 程序是**之前发布**的 V2.0 版本，不包含本次 Pull Request 的代码修复。合并代码后需要重新打包发布才能获得修复。
 
-## 📁 目录说明
-- `/weights`: 存放训练好的 `best.pt` 权重文件。
-- `/src`: 存放 UI 界面源代码 `river_app_final.py`。
-- `/data`: 示例测试图片（包含反光/遮挡等难样本）。
+## 从源码运行
 
-## 📈 训练复盘 (V2.0 优化点)
-1. **反光抑制**: 通过对高亮过曝区域的精准标注，提升了 30% 的识别率。
-2. **遮挡补全**: 强化了对被水草切断的破碎特征的学习。
-3. **性能**: 在 5060 显卡加持下，单帧推理延迟低于 5ms。
+建议 Python 3.11 或 3.12，Windows PowerShell：
 
-## 🖼️ 运行效果展示 (V2.0 实战)
+~~~powershell
+git clone https://github.com/lichuanjie31-prog/Computer-Vision-River-Cleanup-CCZU.git
+cd Computer-Vision-River-Cleanup-CCZU
+py -3.11 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+~~~
 
-### 模式 A：实时河道监控 (RTX 5060 加速)
-针对 V1.0 的反光与遮挡痛点进行深度微调，实现了毫秒级精准追踪。
+如需 NVIDIA 显卡加速，请先根据 [PyTorch 官方安装指南](https://pytorch.org/get-started/locally/) 配置适配显卡的 PyTorch 版本。
 
-<img width="1268" height="1155" alt="demo_live" src="https://github.com/user-attachments/assets/9d4e5f7f-a788-4e0c-bae0-ad45869ce656" />
+**模型权重不在 Git 目录中。** 请在 [Release 附件](https://github.com/lichuanjie31-prog/Computer-Vision-River-Cleanup-CCZU/releases/tag/v2.0) 下载 `best.pt`，放在项目根目录的 `weights/best.pt`（也支持根目录的 `best.pt`）。
 
-
-### 模式 B：文件夹批量分析
-支持导入调研照片文件夹，自动输出带检测框的分析结果至 `Results_Output_V2`。
-
-![demo_batch](https://github.com/user-attachments/assets/32279108-fcba-4497-89e9-4eedc35b65ed)
-
-
-### 实时数据波动图
-同步显示当前画面中的垃圾数量变化，方便记录排污峰值。
-
-<img width="933" height="809" alt="demo_chart" src="https://github.com/user-attachments/assets/723f295d-ec60-43af-a696-a0205afc0bf5" />
-
-
-
-## 📖 操作指南 (Quick Start)
-
-为了确保 V2.0 系统在不同环境下都能稳定运行，请参考以下操作步骤：
-
-### 1. 组员快捷使用 (双击起飞)
-如果你只想运行系统进行测试，无需配置环境：
-- 前往右侧 **[Releases]** 下载最新的 `常大河道巡检_V2.0.zip`。
-- 解压后，直接双击运行 `常大河道巡检_V2.0.exe`。
-- **模式 A** 用于实时演示，**模式 B** 用于处理实验室/实地调研的成批照片。
-
-### 2. 开发者模式 (源码运行)
-如果你想修改代码或重新训练，请按以下步骤配置：
-```bash
-# 克隆项目
-git clone [https://github.com/你的用户名/你的仓库名.git](https://github.com/你的用户名/你的仓库名.git)
-cd River-Cleaner-Vision-V2
-
-# 创建并激活 Python 3.13 环境
-python -m venv venv
-source venv/Scripts/activate
-
-# 安装适配 50 系显卡的依赖 (CUDA 12.8)
-pip install torch torchvision torchaudio --index-url [https://download.pytorch.org/whl/cu128](https://download.pytorch.org/whl/cu128)
-pip install ultralytics PyQt6 matplotlib opencv-python
-
-# 运行 UI
+~~~powershell
 python river_app_final.py
+~~~
 
-```
+## 功能与修复
 
-⚠️ 避坑指南 (必读注意事项)
-为了保证系统在不同电脑上跑得稳，请务必注意以下几点：
+- 模式 A：本地摄像头实时检测与数量曲线。
+- 模式 B：批量识别 JPG/JPEG/PNG 图片，输出到所选文件夹的 `Results_Output_V2/`。
+- 批量推理现运行在 QThread 工作线程，避免主窗口因长批处理长期无响应。
+- “停止任务”会发送取消请求；当前单张图片正在进行的模型推理结束后才会停止。
+- 优化摄像头释放、窗口关闭、缺失模型提示及输出异常处理。
+- 图片使用 Unicode 路径兼容的读写方式，可处理中文文件路径。
+- 摄像头模式仍在 GUI 线程内推理，低性能设备可能短暂卡顿。
 
-🛑 1. 路径禁忌 (核心报错原因)
-严禁中文路径：请确保你的项目文件夹、图片文件夹、以及 .exe 存放的路径里不包含任何中文字符（例如：D:\桌面\项目 是不行的）。YOLO 内核在加载权重时，如果遇到非 ASCII 字符，极大概率会报错崩溃。
+## 训练数据
 
-❄️ 2. 硬件与性能
-显卡驱动：本程序基于 RTX 5060 (Blackwell) 训练。如果组员使用的是旧显卡，请务必更新 NVIDIA 驱动至 2026 年 4 月以后的版本，否则可能无法触发显卡加速，导致 FPS 降低。
+`data.yaml` 已改为相对配置，预期在仓库根目录建立：
 
-虚拟内存：如果批量处理 100 张以上的大图时程序闪退，请检查 Windows 虚拟内存设置，建议手动设为 16GB 以上（班长已亲测，这是解决 WinError 1455 的绝招）。
+~~~text
+dataset/
+  train/images/
+  valid/images/
+  test/images/
+~~~
 
-📂 3. 模型与资源
-模型位置：打包版 .exe 已内置 best.pt。但如果是运行源码，请确保 best.pt 存放在 weights/ 文件夹下。
+数据集未随仓库提供。历史数据来源：[Roboflow Trash in River v2](https://universe.roboflow.com/try-uqrjj/trash-in-river/dataset/2)，标注 CC BY 4.0，请遵守来源许可。
 
-摄像头占用：运行“模式 A”前，请关闭其他占用摄像头的程序（如腾讯会议等），否则会显示“无法启动摄像头”。
+原 README 中的精度提升 30% 和单帧低于 5ms 暂无仓库内可复现实验记录，因此不作为已验证指标。训练和实际推理还需要真实硬件与权重文件验证。
 
-📧 4. 报错反馈
-运行过程中如果控制台（Console 区域）跳出红色报错，请截图发送给我。
+## 检查
 
----
-**Team**: 常州大学软件252 -李传杰 [组长]
-**致谢组员🤝** 沈永权 & 褚恒智 & 蔡宜辰 & 伏丽学 & 梁大娟 & 徐可欣 & 林星言 & 潘彤 & 宋雯萱
+~~~powershell
+python -m py_compile river_app_final.py
+python -m unittest discover -s tests -v
+~~~
 
-**声明**: 感谢常州大学阿里云学院系主任李宁老师的指导。如果对您有帮助，请Star保存使用。
+GitHub Actions 在 PR 上运行上述基础静态检查。通过并不能代替 Windows、显卡、摄像头及模型权重的真实端到端验收。
 
+## 团队
+
+常州大学软件252 · 李传杰（组长）；组员：沈永权、褚恒智、蔡宜辰、伏丽学、梁大娟、徐可欣、林星言、潘彤、宋雯萱。
+
+感谢常州大学阿里云学院李宁老师指导。源码使用 MIT License；第三方模型与数据集遵循各自许可。
