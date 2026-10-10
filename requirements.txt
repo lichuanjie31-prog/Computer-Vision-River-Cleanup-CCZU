@@ -1,0 +1,6 @@
+# Install the appropriate PyTorch build for your GPU first if needed.
+ultralytics>=8.2,<9
+PyQt6>=6.6,<7
+matplotlib>=3.8,<4
+opencv-python>=4.8,<5
+numpy>=1.26,<3
